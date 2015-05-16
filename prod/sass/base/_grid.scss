@@ -1,0 +1,43 @@
+/* GRID */
+nav,
+div,
+article,
+section,
+footer,
+header {
+	display: block;
+	position: relative;
+}
+
+header,
+footer {
+	width: 58%;
+	position: fixed;
+
+
+	@include breakpoint(landscape) {
+		width: 62%;
+	}
+	@include breakpoint(portrait) {
+		position: relative;
+		width: 100%;
+	}
+	@include breakpoint(mobile) {
+		position: relative;
+		width: 100%;
+	}
+}
+main {
+	padding-left: 58%;
+
+
+	@include breakpoint(landscape) {
+		padding-left: 62%;
+	}
+	@include breakpoint(portrait) {
+		padding-left: 0;
+	}
+	@include breakpoint(mobile) {
+		padding-left: 0;
+	}
+}

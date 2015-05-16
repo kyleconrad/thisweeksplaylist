@@ -1,0 +1,113 @@
+/* TEXT SETTINGS */
+* {
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern=1";
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+}
+
+h1,
+h2,
+.date {
+	font-family: "acta-display", serif;
+}
+h1 {
+	color: $black;
+	font-size: 8vw;
+	font-weight: 800;
+	line-height: 0.85;
+
+
+	@include breakpoint(portrait) {
+		max-width: 50vw;
+		line-height: 0.9;
+	}
+	@include breakpoint(mobile) {
+		font-size: 12vw;
+		line-height: 0.9;
+	}
+}
+h2,
+.date {
+	color: rgba($black,0.25);
+	font-size: 6vw;
+	font-weight: 900;
+	background: url('/img/geo.png') repeat-x;
+	background-size: auto 200px;
+	background-position: left top;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+
+	@include breakpoint(portrait) {
+		background-size: 100px auto;
+	}
+	@include breakpoint(mobile) {
+		font-size: 9vw;
+		background-size: 100px auto;
+	}
+}
+
+h6 {
+	color: $black;
+	font-size: 0.8em;
+	font-family: "ocr-b-std", monospace;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: -0.05em;
+	opacity: 0.6;
+	line-height: 1.6;
+
+	a {
+		color: $black;
+		text-decoration: underline;
+
+		&:hover,
+		&:active,
+		&:focus,
+		&:visited {
+			color: $black;
+			outline: none;
+		}
+	}
+}
+
+.song-link {
+	color: $white;
+	font-family: "ocr-b-std", monospace;
+	font-size: 0.9em;
+	letter-spacing: -0.05em;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-transform: uppercase;
+	line-height: 1.3;
+	text-decoration: none;
+	opacity: 0.7;
+
+	&:hover,
+	&:active,
+	&:focus {
+		opacity: 1;
+		outline: none;
+	}
+
+	&.playing {
+		opacity: 1;
+	}
+	&.paused {
+		&:after {
+			display: block;
+			width: 1em;
+			height: 1em;
+			border-left: 0.3em white solid;
+			border-right: 0.3em white solid;
+			position: absolute;
+			right: 2em;
+			top: 50%;
+			@include transform(translateY(-40%));
+			content: '';
+		}
+	}
+}

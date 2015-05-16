@@ -1,0 +1,49 @@
+/* MAIN AREAS */
+main {
+	background: $black;
+	min-height: 100%;
+	font-size: 1rem;
+
+
+	@include breakpoint(large) {
+		font-size: 1.1rem;
+	}
+}
+
+#playlist {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+
+	li {
+		width: 100%;
+		display: block;
+		position: relative;
+		border-bottom: 1px solid rgba($white,0.2);
+
+		a {
+			position: relative;
+			display: block;
+			padding: 2.3em 4.75em 2em 4.6em;
+			text-indent: -2.6em;
+		}
+
+		&:last-child {
+			border-bottom: 0px;
+		}
+	}
+}
+
+.song-progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	height: 100%;
+	background: $white;
+	opacity: 0.09;
+
+	.unplayed & {
+		width: 0;
+	}
+}
