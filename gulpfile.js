@@ -4,13 +4,12 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 
 	// Other plugins
+	rimraf = require('rimraf'),
 	sass = require('gulp-sass'),
 	sourcemaps = require('gulp-sourcemaps'),
 	concat = require('gulp-concat'),
-	rimraf = require('gulp-rimraf'),
 	es = require('event-stream'),
 	minify = require('gulp-minify-css'),
-	htmlbuild = require('gulp-htmlbuild'),
 	uglify = require('gulp-uglify'),
 	imagemin = require('gulp-imagemin'),
 	gutil = require('gulp-util'),
@@ -44,11 +43,8 @@ gulp.task('sass', function() {
 });
 
 
-gulp.task('remove', function() {
-	gulp.src('./dist/**/*', {
-			read: false
-		})
-		.pipe(rimraf());
+gulp.task('remove', function (cb) {
+    rimraf('./dist', cb);
 });
 
 gulp.task('minify', ['sass'], function() {
@@ -140,9 +136,9 @@ gulp.task('default', ['serve', 'sass'], function(){
 // Build functionality with cleaning, moving, compiling, etc.
 gulp.task('build', ['remove'], function(){
 	return gulp.start(
-	 //    'minify',
-		// 'uglify',
-		// 'html',
+	    'minify',
+		'uglify',
+		'html',
 		'images'
 	);
 });
