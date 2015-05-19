@@ -1,11 +1,15 @@
 {
   "name": "thisweeksplaylist",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This Week's Playlist",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Kyle Conrad <kyle@kyleconrad.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kyleconrad/thisweeksplaylist.git"
+  },
   "devDependencies": {
     "gulp": "~3.8.9",
     "browser-sync": "^1.5.8",
@@ -16,8 +20,11 @@
   "dependencies": {
     "gulp-minify-css": "~0.3.11",
     "gulp-imagemin": "^1.2.1",
-    "gulp-rimraf": "^0.1.1",
+    "rimraf": "~2.2.8",
     "gulp-uglify": "^1.0.1",
-    "gulp-htmlbuild": "^0.3.0"
+    "event-stream": "^3.3.1",
+    "gulp-concat": "^2.5.2",
+    "rsyncwrapper": "~0.4.2",
+    "gulp-util": "~3.0.4"
   }
 }

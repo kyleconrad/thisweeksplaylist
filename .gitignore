@@ -1,2 +1,6 @@
-/dist/
-/note_modules/
+node_modules
+dist
+
+.sass-cache
+.sass-cache/**/*
+*.scssc
