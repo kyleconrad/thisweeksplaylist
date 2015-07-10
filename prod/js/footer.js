@@ -14,7 +14,6 @@ $(document).ready(function() {
 
 	// POLYFILL FOR WEBKIT BACKGROUND TEXT CLIPPING
 	var clipElement = document.querySelector('h2'),
-		// imgPath = '../img/arrows.jpg';
 		imgPath = $('h2').data('pattern');
 
 	clipElement.backgroundClipPolyfill({
