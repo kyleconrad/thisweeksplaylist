@@ -11,6 +11,10 @@ $(document).ready(function() {
 		isOpera = /Opera/.test(navigator.userAgent);
 
 
+	// GET PAGE TITLE
+	var pageTitle = document.title,
+		songTitleLoaded = false;
+
 
 	// POLYFILL FOR WEBKIT BACKGROUND TEXT CLIPPING
 	var clipElement = document.querySelector('h2'),
@@ -71,7 +75,8 @@ $(document).ready(function() {
 		var url = elem.attr('audio'),
 			progress = elem.children('.song-progress');
 
-		// song = new Audio('music/' + url + '.mp3');
+		document.title = elem.text() + ' \u00A0\xD7\u00A0 ' + pageTitle;
+
 		song = new Audio('//cdn.thisweeksplaylist.co/tracks/' + url + '.mp3');
 
 		song.addEventListener('timeupdate',function (){
@@ -92,6 +97,8 @@ $(document).ready(function() {
 			else if (current >= song.duration && elem.is(':last-child')) {
 				elem.children('.song-link').removeClass('playing paused').addClass('unplayed');
 				progress.css('width', 0);
+
+				document.title = pageTitle;
 			}
 		});
 	}
