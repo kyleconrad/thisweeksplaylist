@@ -151,7 +151,7 @@ gulp.task('deploy', function() {
 	rsync({
 		ssh: true,
 		src: 'dist/',
-		dest: 'gifff.fr:/var/www/thisweeksplaylist.co/public_html',
+		dest: '162.243.216.48:/var/www/thisweeksplaylist.co/public_html',
 		recursive: true,
 		syncDest: true,
 		args: ['--verbose --progress'],
