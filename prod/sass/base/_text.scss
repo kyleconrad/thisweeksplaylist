@@ -34,19 +34,20 @@ h2,
 	color: rgba($black,0.25);
 	font-size: 6vw;
 	font-weight: 900;
-	background: url('/img/beyonce.jpg') repeat;
-	background-size: auto 100%;
-	background-position: center center;
+	background: url('/img/chance.gif') repeat, url('/img/chance.jpg') repeat;
+	background-size: 100% auto;
+	background-position: center 15%;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	display: inline-block;
 
 
 	@include breakpoint(portrait) {
-		background-size: 100px auto;
+		background-size: 100% auto;
 	}
 	@include breakpoint(mobile) {
 		font-size: 9vw;
-		background-size: 100px auto;
+		background-size: 100% auto;
 	}
 }
 
