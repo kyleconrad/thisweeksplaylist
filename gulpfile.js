@@ -12,6 +12,7 @@ var gulp = require('gulp'),
 	minify = require('gulp-minify-css'),
 	uglify = require('gulp-uglify'),
 	imagemin = require('gulp-imagemin'),
+	chmod = require('gulp-chmod'),
 	gutil = require('gulp-util'),
 	rsync = require('rsyncwrapper').rsync;
 
@@ -84,15 +85,19 @@ gulp.task('images', ['html'], function() {
 	     			convertShapeToPath: false
 	     		}]
 	        }))
+	        .pipe(chmod(755))
 	        .pipe(gulp.dest('./dist/img')),
 		gulp.src('./prod/img/**/*.gif')
+			.pipe(chmod(755))
 			.pipe(gulp.dest('./dist/img')),
 		gulp.src(['./prod/*.png', './prod/*.jpg'])
 	        .pipe(imagemin({
 	        	progressive: true
 	        }))
+	        .pipe(chmod(755))
 	        .pipe(gulp.dest('./dist')),
 		gulp.src('./prod/*.ico')
+			.pipe(chmod(755))
 			.pipe(gulp.dest('./dist'))
 	);
 });
