@@ -31,8 +31,10 @@ gulp.task('serve', function() {
 
 
 // Indexing music
+var musicSource = '../Music/2016/07-17-16/*.mp3';
+
 gulp.task('index', function() {
-	gulp.src('../Music/2016/07-17-16/*.mp3')
+	gulp.src(musicSource)
 		.pipe(folderIndex({
 			extension: ' ',
 			filename: 'music.json',
