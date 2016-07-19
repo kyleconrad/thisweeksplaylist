@@ -9,7 +9,9 @@ $(document).ready(function() {
 	var isMobile = navigator.userAgent.match(/mobile/i);
 	var isFirefox = /Firefox/.test(navigator.userAgent),
 		isOpera = /Opera/.test(navigator.userAgent);
-
+	if (!isMobile) {
+		$('body').addClass('desktop');
+	}
 
 	// GET PAGE TITLE
 	var pageTitle = document.title,
@@ -28,49 +30,71 @@ $(document).ready(function() {
 
 
 
-	// ADDING CONTROLS AND PROGRESS ON LOAD
-	if (!isMobile) {
-		$('body').addClass('desktop');
+	// BUILD LIST BASED ON JSON
+	var musicList = [],
+		song;
+
+	buildList();
+
+	function buildList() {
+		$.getJSON( '/js/music.json', function( data ) {
+			$.each( data, function( key, data ) {
+				var titleEnd = data.substr(0, data.length-1);
+				var titleBegin = titleEnd.substr(5);
+
+				musicList.push( titleBegin );
+			});
+
+			$.each( musicList, function( key, data ) {
+				var trackNum = leftPad(key+1, 2);
+
+				$('#playlist').append( '<li audio="' + trackNum + '"><a href="#" class="song-link unplayed">' + trackNum + '. ' + data + '</a><div class="song-progress"></div></li>' );
+			});
+
+			$('.song-link').on('click', function(e){
+				var songLine = $(this).parents('li');
+
+				if (!$(this).hasClass('playing') && !songLine.siblings('li').children('.song-link').hasClass('playing')) {
+					loadSong(songLine);
+				}
+				else if (!$(this).hasClass('playing') && songLine.siblings('li').children('.song-link').hasClass('playing')) {
+					var otherSongs = songLine.siblings('li');
+
+					song.pause();
+					otherSongs.children('.song-progress').css('width', 0);
+					otherSongs.children('.song-link').removeClass('playing paused').addClass('unplayed');
+
+					loadSong(songLine);
+				}
+				
+				song.play();
+
+				songLine.siblings('li').children('.song-link').removeClass('playing paused');
+				$(this).addClass('playing').removeClass('unplayed');
+
+				if (!$(this).hasClass('paused') && song.currentTime > 0) {
+					song.pause();
+					$(this).addClass('paused');
+				}
+				else if ($(this).hasClass('paused') && song.currentTime > 0) {
+					$(this).removeClass('paused');
+				}
+
+				return false;
+			});
+		});
 	}
-	$('#playlist li').wrapInner('<a href="#" class="song-link unplayed">').append('<div class="song-progress"></div>');
+	function leftPad( number, targetLength ) {
+	    var output = number + '';
+	    while (output.length < targetLength) {
+	        output = '0' + output;
+	    }
+	    return output;
+	}
 
 
 
 	// PLAYING AUDIO
-	var song;
-
-	$('.song-link').on('click', function(e){
-		var songLine = $(this).parents('li');
-
-		if (!$(this).hasClass('playing') && !songLine.siblings('li').children('.song-link').hasClass('playing')) {
-			loadSong(songLine);
-		}
-		else if (!$(this).hasClass('playing') && songLine.siblings('li').children('.song-link').hasClass('playing')) {
-			var otherSongs = songLine.siblings('li');
-
-			song.pause();
-			otherSongs.children('.song-progress').css('width', 0);
-			otherSongs.children('.song-link').removeClass('playing paused').addClass('unplayed');
-
-			loadSong(songLine);
-		}
-		
-		song.play();
-
-		songLine.siblings('li').children('.song-link').removeClass('playing paused');
-		$(this).addClass('playing').removeClass('unplayed');
-
-		if (!$(this).hasClass('paused') && song.currentTime > 0) {
-			song.pause();
-			$(this).addClass('paused');
-		}
-		else if ($(this).hasClass('paused') && song.currentTime > 0) {
-			$(this).removeClass('paused');
-		}
-
-		return false;
-	});
-
 	function loadSong(elem) {
 		var url = elem.attr('audio'),
 			progress = elem.children('.song-progress');

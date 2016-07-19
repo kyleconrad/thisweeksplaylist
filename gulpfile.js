@@ -14,7 +14,8 @@ var gulp = require('gulp'),
 	imagemin = require('gulp-imagemin'),
 	chmod = require('gulp-chmod'),
 	gutil = require('gulp-util'),
-	rsync = require('rsyncwrapper').rsync;
+	rsync = require('rsyncwrapper').rsync,
+	folderIndex = require('gulp-folder-index');
 
 
 
@@ -26,6 +27,18 @@ gulp.task('serve', function() {
 		},
 		host: 'localhost'
     });
+});
+
+
+// Indexing music
+gulp.task('index', function() {
+	gulp.src('../Music/2016/07-17-16/*.mp3')
+		.pipe(folderIndex({
+			extension: ' ',
+			filename: 'music.json',
+			prefix: ''
+		}))
+		.pipe(gulp.dest('./prod/js'));
 });
 
 
@@ -56,10 +69,14 @@ gulp.task('minify', ['sass'], function() {
 		.pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('uglify', ['minify'], function() {
-  	return gulp.src('./prod/js/*.js')
-      	.pipe(uglify())
-      	.pipe(gulp.dest('./dist/js'));
+gulp.task('uglify', ['minify', 'index'], function() {
+	return es.merge(
+		gulp.src('./prod/js/*.js')
+	      	.pipe(uglify())
+	      	.pipe(gulp.dest('./dist/js')),
+	    gulp.src('./prod/js/*.json')
+			.pipe(gulp.dest('./dist/js'))
+    );
 });
 
 gulp.task('html', ['uglify'], function() {
